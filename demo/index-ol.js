@@ -30,12 +30,12 @@ worker.onmessage = function (e) {
     } else {
         markers.getSource().clear();
         var geojsonObject = {
-          "type": "FeatureCollection",
-          "features": e.data
+            "type": "FeatureCollection",
+            "features": e.data
         };
         var features = (new ol.format.GeoJSON()).readFeatures(geojsonObject, {
-           dataProjection: 'EPSG:4326',
-           featureProjection: 'EPSG:3857',
+            dataProjection: 'EPSG:4326',
+            featureProjection: 'EPSG:3857',
         });
         markers.getSource().addFeatures(features);
     }
@@ -75,9 +75,18 @@ var textFill = new ol.style.Fill({
 });
 
 var clusterStylesConfig = {
-  'small': { rgba_bg: [181, 226, 140, 0.6], rgba_fg: [110, 204, 57, 0.6]},
-  'medium': { rgba_bg: [241, 211, 87, 0.6], rgba_fg: [240, 194, 12, 0.6]},
-  'large': { rgba_bg: [253, 156, 115, 0.6], rgba_fg: [241, 128, 23, 0.6]}
+    'small': {
+        rgba_bg: [181, 226, 140, 0.6],
+        rgba_fg: [110, 204, 57, 0.6]
+    },
+    'medium': {
+        rgba_bg: [241, 211, 87, 0.6],
+        rgba_fg: [240, 194, 12, 0.6]
+    },
+    'large': {
+        rgba_bg: [253, 156, 115, 0.6],
+        rgba_fg: [241, 128, 23, 0.6]
+    }
 };
 
 function createClusterIcon(feature, resolution) {
