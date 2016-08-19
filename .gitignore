@@ -4,4 +4,3 @@ coverage
 tmp
 *.log
 trees*.json
-demo/supercluster.js
