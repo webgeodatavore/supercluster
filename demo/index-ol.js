@@ -1,7 +1,5 @@
 'use strict';
 
-/*global ol */
-
 var map = new ol.Map({
     target: 'map',
     view: new ol.View({
@@ -14,10 +12,13 @@ map.addLayer(new ol.layer.Tile({
     source: new ol.source.OSM()
 }));
 
-var markers = new ol.layer.Vector({
-    source: new ol.source.Vector(),
-    style: createClusterIcon
-});
+var markers = new ol.layer.Image({
+   source: new ol.source.ImageVector({
+     source: new ol.source.Vector(),
+     style: createClusterIcon
+   })
+ })
+
 map.addLayer(markers);
 
 var worker = new Worker('worker.js');
@@ -28,7 +29,7 @@ worker.onmessage = function (e) {
         ready = true;
         update();
     } else {
-        markers.getSource().clear();
+        markers.getSource().getSource().clear();
         var geojsonObject = {
             "type": "FeatureCollection",
             "features": e.data
@@ -37,7 +38,7 @@ worker.onmessage = function (e) {
             dataProjection: 'EPSG:4326',
             featureProjection: 'EPSG:3857',
         });
-        markers.getSource().addFeatures(features);
+        markers.getSource().getSource().addFeatures(features);
     }
 };
 
