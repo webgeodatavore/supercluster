@@ -2,16 +2,14 @@
   "name": "supercluster",
   "version": "2.1.0",
   "description": "A crazy fast geospatial point clustering library.",
-  "browser": "dist/supercluster.js",
-  "main": "dist/supercluster.js",
+  "main": "index.js",
   "scripts": {
     "pretest": "eslint index.js test/test.js",
     "test": "tap test",
     "cov": "tap test --cov",
-    "uglifyjs": "cat dist/supercluster.js |uglifyjs > dist/supercluster.min.js",
-    "compile:js": "browserify index.js -s supercluster > dist/supercluster.js",
-    "compile:all": "mkdir -p dist && npm run compile:js && npm run uglifyjs",
-    "mypublish": "npm run compile:all && npm publish"
+    "build-dev": "mkdir -p dist && browserify -d index.js -s supercluster > dist/supercluster.js",
+    "build-min": "mkdir -p dist && browserify index.js -s supercluster | uglifyjs -c warnings=false -m > dist/supercluster.min.js",
+    "prepublish": "npm run build-dev && npm run build-min"
   },
   "files": [
     "dist"
